@@ -17,5 +17,5 @@ public class ProjetDTO {
     private LocalDate endDate;
     private double budget;
 
-  
+
 }
