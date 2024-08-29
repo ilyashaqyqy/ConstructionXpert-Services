@@ -1,17 +1,29 @@
 package com.construction.projets.service;
 
+import com.construction.projets.dto.ProjectWithTasksDTO;
 import com.construction.projets.dto.ProjetDTO;
+import com.construction.projets.dto.TaskDTO;
 import com.construction.projets.mapper.ProjetMapper;
 import com.construction.projets.model.Projet;
 import com.construction.projets.repository.ProjetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ProjetService {
+
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     private ProjetRepository projetRepository;
@@ -54,5 +66,20 @@ public class ProjetService {
 
     public void deleteProjet(Long id) {
         projetRepository.deleteById(id);
+    }
+
+
+    public ProjectWithTasksDTO getProjetWithTasks(Long id) {
+        ProjetDTO projet = getProjetById(id);
+
+        ResponseEntity<List<TaskDTO>> tasksResponse = restTemplate.exchange(
+                "http://tasks/api/tasks/project/" + id,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<TaskDTO>>() {}
+        );
+        List<TaskDTO> tasks = tasksResponse.getBody();
+
+        return new ProjectWithTasksDTO(projet, tasks);
     }
 }

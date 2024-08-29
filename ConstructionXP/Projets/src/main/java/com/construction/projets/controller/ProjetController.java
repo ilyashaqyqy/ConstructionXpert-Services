@@ -1,5 +1,6 @@
 package com.construction.projets.controller;
 
+import com.construction.projets.dto.ProjectWithTasksDTO;
 import com.construction.projets.dto.ProjetDTO;
 import com.construction.projets.service.ProjetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,11 @@ public class ProjetController {
     public ResponseEntity<Void> deleteProjet(@PathVariable Long id) {
         projetService.deleteProjet(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/{id}/with-tasks")
+    public ResponseEntity<ProjectWithTasksDTO> getProjetWithTasks(@PathVariable Long id) {
+        return ResponseEntity.ok(projetService.getProjetWithTasks(id));
     }
 }
