@@ -9,6 +9,10 @@
         <option value="$PROJECT_DIR$/discovery/pom.xml" />
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
         <option value="$PROJECT_DIR$/Projets/pom.xml" />
+        <option value="$PROJECT_DIR$/Task/pom.xml" />
+        <option value="$PROJECT_DIR$/Tasks/pom.xml" />
+        <option value="$PROJECT_DIR$/tasks/pom.xml" />
+        <option value="$PROJECT_DIR$/ressources/pom.xml" />
       </list>
     </option>
   </component>
