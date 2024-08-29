@@ -13,6 +13,7 @@ public class TaskDTO {
     private String endDate;
     private String status;
     private String resources;
+    private Long projetId ;
 
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api/tasks")
 public class TaskController {
 
     @Autowired
@@ -45,5 +45,11 @@ public class TaskController {
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<TaskDTO>> getTasksByProjectId(@PathVariable Long projectId) {
+        List<TaskDTO> tasks = taskService.getTasksByProjectId(projectId);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 }

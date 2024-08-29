@@ -4,17 +4,21 @@ import com.construction.tasks.dto.TaskDTO;
 import com.construction.tasks.model.Task;
 import com.construction.tasks.mapper.TaskMapper;
 import com.construction.tasks.repository.TaskRepository;
+import com.construction.tasks.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class TaskServiceimpl {
+public class TaskServiceimpl implements TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    private final TaskMapper taskMapper = TaskMapper.INSTANCE;
 
     public TaskDTO createTask(TaskDTO taskDTO) {
         Task task = TaskMapper.INSTANCE.toEntity(taskDTO);
@@ -52,5 +56,13 @@ public class TaskServiceimpl {
         return tasks.stream()
                 .map(TaskMapper.INSTANCE::toDTO)
                 .toList();
+    }
+
+    @Override
+    public List<TaskDTO> getTasksByProjectId(Long projectId) {
+        List<Task> tasks = taskRepository.findByProjetId(projectId);
+        return tasks.stream()
+                .map(taskMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
