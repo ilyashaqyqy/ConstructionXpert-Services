@@ -13,5 +13,4 @@ public class ProjectWithTasksDTO {
     private ProjetDTO projet;
     private List<TaskDTO> tasks;
 
-
 }

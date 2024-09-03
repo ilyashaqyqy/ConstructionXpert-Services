@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/Tasks/pom.xml" />
         <option value="$PROJECT_DIR$/tasks/pom.xml" />
         <option value="$PROJECT_DIR$/ressources/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
       </list>
     </option>
   </component>

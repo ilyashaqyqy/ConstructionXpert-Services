@@ -1,5 +1,6 @@
 package com.construction.projets.service;
 
+import com.construction.projets.client.TaskServiceClient;
 import com.construction.projets.dto.ProjectWithTasksDTO;
 import com.construction.projets.dto.ProjetDTO;
 import com.construction.projets.dto.TaskDTO;
@@ -23,7 +24,7 @@ public class ProjetService {
 
 
     @Autowired
-    private RestTemplate restTemplate;
+    private TaskServiceClient taskServiceClient;
 
     @Autowired
     private ProjetRepository projetRepository;
@@ -71,15 +72,7 @@ public class ProjetService {
 
     public ProjectWithTasksDTO getProjetWithTasks(Long id) {
         ProjetDTO projet = getProjetById(id);
-
-        ResponseEntity<List<TaskDTO>> tasksResponse = restTemplate.exchange(
-                "http://tasks/api/tasks/project/" + id,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<TaskDTO>>() {}
-        );
-        List<TaskDTO> tasks = tasksResponse.getBody();
-
+        List<TaskDTO> tasks = taskServiceClient.getTasksForProject(id);
         return new ProjectWithTasksDTO(projet, tasks);
     }
 }

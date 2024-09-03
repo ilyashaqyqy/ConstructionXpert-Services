@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: projets-service
+          uri: lb://PROJETS
+          predicates:
+            - Path=/api/projets/**
+        - id: tasks-service
+          uri: lb://TASKS
+          predicates:
+            - Path=/api/tasks/**
+  config:
+      import: optional:configserver:http://localhost:8888/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
